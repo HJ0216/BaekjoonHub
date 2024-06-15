@@ -9,23 +9,25 @@ public class Main {
 
         int n = Integer.parseInt(br.readLine());
 
-        int p[] = new int[n];
+        int counting[] = new int[1001]; // idx: 걸리는 시간
 
         StringTokenizer st = new StringTokenizer(br.readLine());
 
         for(int i=0; i<n; i++){
-            p[i] = Integer.parseInt(st.nextToken());
+            counting[Integer.parseInt(st.nextToken())]++;
         }
 
-        Arrays.sort(p);
+        int sum = 0;
+        int preSum = 0;
 
-        int result = 0;
-
-        for(int i = 0; i<n; i++){
-            result += p[i] * (n-i);
+        for(int i = 0; i<1001; i++){
+            while(counting[i]-- > 0){
+                sum += (i + preSum);
+                preSum += i;
+            }
         }
 
-        bw.write(result + "");
+        bw.write(sum + "");
         bw.close();
     }
 }
