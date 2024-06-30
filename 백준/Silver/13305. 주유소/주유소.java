@@ -10,37 +10,32 @@ public class Main {
 
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int[] routes = new int[n-1];
+        int[] distance = new int[n-1];
+        int[] costs = new int[n];
 
         int index = 0;
         while (st.hasMoreTokens()){
-            routes[index++] = Integer.parseInt(st.nextToken());
+            distance[index++] = Integer.parseInt(st.nextToken());
         }
 
         st = new StringTokenizer(br.readLine());
 
-        int[] cities = new int[n];
-
         index = 0;
         while (st.hasMoreTokens()){
-            cities[index++] = Integer.parseInt(st.nextToken());
+            costs[index++] = Integer.parseInt(st.nextToken());
         }
 
-        int price = 0;
-        for(int i=0; i< cities.length; i++){
-            int tempMin = Arrays.stream(cities, (i+1), (cities.length-1)).min().getAsInt();
-            if(cities[i]>tempMin){
-                price += cities[i] * routes[i];
-            } else {
-                for (int j=i; j< routes.length; j++){
-                    price += cities[i] * routes[j];
-                }
-
-                break;
+        long sum = 0;
+        long minCost = costs[0];
+        for(int i=0; i< n-1; i++){
+            if(costs[i]<minCost){
+                minCost = costs[i];
             }
+
+            sum += minCost*distance[i];
         }
 
-        bw.write(price + "");
+        bw.write(sum + "");
         bw.close();
 
     }
