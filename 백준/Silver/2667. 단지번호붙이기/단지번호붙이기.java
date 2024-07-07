@@ -21,8 +21,7 @@ public class Main {
         for(int i=0; i<n; i++){
             String data = br.readLine();
             for(int j=0; j<data.length(); j++){
-                map[i][j] = data.charAt(j) - '0';
-                // map[i][j] = Character.getNumericValue(data.charAt(j));
+                 map[i][j] = Character.getNumericValue(data.charAt(j));
             }
         }
 
@@ -34,7 +33,7 @@ public class Main {
                     numberOfDanji++;
 
                     numberOfHouse = 0;
-                    dfs(i,j);
+                    bfs(i, j);
                     numbersOfHouse.add(numberOfHouse);
                 }
             }
@@ -50,24 +49,27 @@ public class Main {
 
         bw.close();
     }
-
-    private static void dfs(int x, int y) {
+    
+    private static void bfs(int x, int y){
+        Queue<int[]> queue = new LinkedList<>();
+        queue.add(new int[] {x,y});
         isVisited[x][y] = true;
-        map[x][y] = numberOfDanji;
-        numberOfHouse++;
 
-        for (int i=0; i<4; i++){
-            currentX = dx[i] + x;
-            currentY = dy[i] + y;
+        while (!queue.isEmpty()){
+            numberOfHouse++;
 
-            if(checkVaildRange() && map[currentX][currentY] == 1 && !isVisited[currentX][currentY]){
-                isVisited[currentX][currentY] = true;
-                map[currentX][currentY] = numberOfDanji;
+            int current[] = queue.poll();
 
-                dfs(currentX, currentY);
+            for (int i=0; i<4; i++){
+                currentX = current[0] + dx[i];
+                currentY = current[1] + dy[i];
+
+                if(checkVaildRange() && map[currentX][currentY] == 1 && !isVisited[currentX][currentY]){
+                    queue.offer(new int[]{currentX, currentY});
+                    isVisited[currentX][currentY] = true;
+                }
             }
         }
-
     }
 
     private static boolean checkVaildRange() {
