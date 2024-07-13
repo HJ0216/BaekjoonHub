@@ -59,7 +59,13 @@ public class Main {
             int movedX = x + dx[i];
             int movedY = y + dy[i];
 
-            if(checkVaildRange(movedX, movedY) && graph[movedX][movedY] > h && !isVisited[movedX][movedY]){
+            if(!checkVaildRange(movedX, movedY))
+                continue;
+
+            if(isVisited[movedX][movedY])
+                continue;
+            
+            if(graph[movedX][movedY] > h){
                 dfs(movedX, movedY, h);
             }
         }
