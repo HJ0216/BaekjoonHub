@@ -8,6 +8,7 @@ public class Main {
     static int N;
 
     public static void main(String[] args) throws IOException {
+
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
@@ -31,7 +32,7 @@ public class Main {
             graph[p2].add(p1);
         }
 
-        dfs(1);
+        bfs(1);
 
         for (int i=2; i<=N; i++){
             bw.append(parent[i] + "\n");
@@ -40,15 +41,22 @@ public class Main {
         bw.close();
     }
 
-    private static void dfs(int index) {
+    private static void bfs(int index){
+        Queue<Integer> queue = new LinkedList<Integer>();
+        queue.add(index);
+
         isVisited[index] = true;
 
-        for(int i : graph[index]){
-            if(!isVisited[i]){
-                parent[i] = index;
-                dfs(i);
+        while (!queue.isEmpty()){
+            int current = queue.poll();
+
+            for (int node : graph[current]){
+                if(!isVisited[node]){
+                    queue.offer(node);
+                    parent[node] = current;
+                    isVisited[node] =  true;
+                }
             }
         }
     }
-
 }
