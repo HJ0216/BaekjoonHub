@@ -2,16 +2,13 @@ import java.util.*;
 
 class Solution {
     public int[] solution(long n) {
-        int length = (int)Math.log10(n) + 1;
+        String num = String.valueOf(n);
+        String[] reverseNums = new StringBuilder(num).reverse().toString().split("");
 
-        int[] answer = new int[length];
+        int[] answer = new int[reverseNums.length];
 
-        int index = 0;
-
-        while(n>0){
-            int number = Math.floorMod(n, 10);
-            answer[index++] = number;
-            n /= 10;
+        for(int i=0; i<answer.length; i++){
+            answer[i] = Integer.parseInt(reverseNums[i]);
         }
         
         return answer;
