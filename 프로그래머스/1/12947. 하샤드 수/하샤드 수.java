@@ -6,6 +6,6 @@ class Solution {
             sum += Integer.parseInt(s);
         }
         
-        return (x%sum == 0) ? true : false;
+        return x%sum == 0;
     }
 }
