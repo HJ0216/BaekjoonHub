@@ -49,7 +49,7 @@ class Solution {
             switch (room[nextY][nextX]){
                 case 'P': return false;
                 case 'O':
-                    if(isNextToVolunteer(room, nextX, nextY, 3-d))
+                    if(isNextToVolunteer(room, nextY, nextX, 3-d))
                         return false;
                     break;
             }
@@ -58,7 +58,7 @@ class Solution {
         return true;
     }
 
-    private boolean isNextToVolunteer(char[][] room, int nextX, int nextY, int exclude) {
+    private boolean isNextToVolunteer(char[][] room, int nextY, int nextX, int exclude) {
         for (int d = 0; d < 4; d++) {
             if(d == exclude)
                 continue;
